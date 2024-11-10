@@ -315,7 +315,6 @@ class Game:
                             if self.scan_for_checkmate():
                                 self.winner = "black"
                                 self.game_over = True
-                                print(self.winner)
                             if click_coordinates in self.selection.available_moves_in_check(game) and self.no_pins(click_coordinates):
                                 white_player.make_move(game, click_coordinates)
                                 # since we were able to make a move we can remove our check status
@@ -351,7 +350,6 @@ class Game:
                             if self.scan_for_checkmate():
                                 self.winner = "white"
                                 self.game_over = True
-                                print(self.winner)
                             if click_coordinates in self.selection.available_moves_in_check(game) and self.no_pins(click_coordinates):
                                 black_player.make_move(game, click_coordinates)
                                 black_player.in_check = False
@@ -396,16 +394,13 @@ class Game:
             # printing the captured pieces
             self.screen.blit(self.game_text_font.render("Captured Pieces", False, (100, 100, 100)), (900, 170))
             self.screen.blit(self.game_text_font.render("Captured Pieces", False, (100, 100, 100)), (900, 770))
-            #if white_player.in_check == True:
-                #self.screen.blit(self.game_text_font.render("White is in check", False, (100, 100, 100)), (800, 450))
-            #if black_player.in_check == True:
-                #self.screen.blit(self.game_text_font.render("Black is in check", False, (100, 100, 100)), (800, 450))
 
-            # flip() the display to put your work on screen
-            # look into what flip() does
-            # updates the screen similar to pygame.display.update()... 
-            # diff being that flip updates entire screen, update can flip segment of screen
-            # depending on which arguments we give it... for now we'll use flip
+            # Printing winner if checkmate occurs
+            if self.game_over:
+                self.screen.blit(self.game_text_font.render(f"Game Over, {self.winner} is the winner", False, (100, 100, 100)), (200, 20))
+
+
+
             pygame.display.flip()
             self.clock.tick(30) # limits FPS to 30
 
